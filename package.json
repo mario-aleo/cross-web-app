@@ -1,0 +1,24 @@
+{
+  "name": "cross-web-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mario-aleo/cross-web-app.git"
+  },
+  "author": "Mario Aleo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mario-aleo/cross-web-app/issues"
+  },
+  "homepage": "https://github.com/mario-aleo/cross-web-app#readme",
+  "devDependencies": {
+    "eslint": "^4.12.1",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.4.0"
+  }
+}
