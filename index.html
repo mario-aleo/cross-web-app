@@ -4,28 +4,204 @@
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
+        
+        <style>
+            body {
+                position: relative;
+                height: 100vh;
+                min-height: 100vh;
+                padding: 0;
+                margin: 0;
+
+                display: grid;
+                grid-template-rows: 64px auto 64px;
+                grid-template-columns: 64px auto 64px;
+                grid-template-areas:
+                "header     header      header" 
+                "sideLeft   content     sideRight"
+                "sideLeft   footer      sideRight";
+            }
+
+            #header {
+                grid-area: header;
+                background-color: rgb(255, 255, 255);
+            }
+            #asideLeft {
+                grid-area: sideLeft;
+                background-color: rgb(215, 15, 15);
+            }
+            #asideRight {
+                grid-area: sideRight;
+                background-color: rgb(150, 150, 150);
+            }
+            #content {
+                grid-area: content;
+                background-color: rgb(200, 200, 200);
+            }
+            #footer {
+                grid-area: footer;
+                background-color: rgb(175, 175, 175);
+            }
+
+            @media only screen and (max-width: 425px) {
+                body {
+                    grid-template-rows: 64px auto 64px;
+                    grid-template-columns: auto;
+                    grid-template-areas:
+                    "header" 
+                    "content"
+                    "footer";
+                }
+                #asideLeft,
+                #asideRight {
+                    display: none;
+                }
+            }
+        </style>
     </head>
     <body>
-        <script src="components/es6/es6Samples.js"></script>
-        <script>
-            const arrNumeros = [ 1, 1, 2, 3, 5, 8, 13, 21];
-            const arrPessoas = [
-                { nome: "Mario", idade: 23 },
-                { nome: "Maria", idade: 12 },
-                { nome: "Jose", idade: 18 },
-                { nome: "Joao", idade: 8 },
-                { nome: "Lais", idade: 21 },
-                { nome: "Carlos", idade: 17 }
-            ];
-            const arrNomes = [ "Mario", "Maria", "Jose", "Joao", "Lais", "Carlos" ];
 
-            // Map
-            console.log( mapToMaisUm(arrNumeros) );
-            // Filter
-            console.log( filterMaior18(arrPessoas) );
-            // Reduce
-            console.log( reduceArrToObj(arrNomes) );
-        </script>
+        <header id="header"></header>
+        <aside id="asideLeft"></aside>
+        <aside id="asideRight"></aside>
+        <section id="content"></section>
+        <footer id="footer"></footer>
+
+        <!-- <style>
+            body {
+                margin: 0;
+                padding: 0;
+                min-height: 100vh;
+                background-color: lightgrey;
+
+                display: grid;
+                grid-gap: 8px;
+                grid-auto-rows: minmax(64px, 128px);
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .box_1x1,
+            .box_1x2,
+            .box_2x1,
+            .box_2x2 {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                background-color: #FFF;
+            }
+            .box_1x1 {
+                grid-row: span 1;
+                grid-column: span 1;
+            }
+            .box_1x2 {
+                grid-row: span 1;
+                grid-column: span 2;
+            }
+            .box_2x1 {
+                grid-row: span 2;
+                grid-column: span 1;
+            }
+            .box_2x2 {
+                grid-row: span 2;
+                grid-column: span 2;
+            }
+
+            /**
+             *  Define o flex-box de um elemento
+             */
+            .flex-row {
+                display: flex;
+                flex-direction: row;
+            }
+            .flex-column {
+                display: flex;
+                flex-direction: column;
+            }
+
+            /**
+             *  Alinha os elementos filhos no sentido da direção flex colocando eles no começo
+             */
+            .direction-start,
+            .d-start {
+                justify-content: flex-start;
+            }
+            /**
+             *  Alinha os elementos filhos no sentido da direção flex colocando eles no centro
+             */
+            .direction-center,
+            .d-center {
+                justify-content: center;
+            }
+            /**
+             *  Alinha os elementos filhos no sentido da direção flex colocando eles no fim
+             */
+            .direction-end,
+            .d-end {
+                justify-content: flex-end;
+            }
+            /**
+             *  Alinha os elementos filhos no sentido da direção flex colocando
+             *  um espaço entre ele
+             */
+            .direction-between,
+            .d-between {
+                justify-content: space-between;
+            }
+            /**
+             *  Alinha os elementos filhos no sentido da direção flex colocando
+             *  um espaço entre e ao redor dele
+             */
+            .direction-around,
+            .d-around {
+                justify-content: space-around;
+            }
+
+            /**
+             *  Alinha os elementos filhos no sentido contrario da direção flex
+             *  colocando eles no começo
+             */
+            .counter-direction-start,
+            .c-start {
+                align-items: flex-start;
+            }
+            /**
+             *  Alinha os elementos filhos no sentido contrario da direção flex
+             *  colocando eles no centro
+             */
+            .counter-direction-center,
+            .c-center {
+                align-items: center;
+            }
+            /**
+             *  Alinha os elementos filhos no sentido contrario da direção flex
+             *  colocando eles no fim
+             */
+            .counter-direction-end,
+            .c-end {
+                align-items: flex-end;
+            }
+        </style>
+
+        <div class="box_1x1"> 1x1 </div>
+        <div class="box_1x1"> 1x1 </div>
+        <div class="box_1x1"> 1x1 </div>
+
+        <div class="box_1x1"> 1x1 </div>
+        <div class="box_1x2"> 1x2 </div>
+
+        <div class="box_1x2"> 1x2 </div>
+        <div class="box_1x1"> 1x1 </div>
+
+        <div class="box_2x1"> 2x1 </div>
+        <div class="box_2x2"> 2x2 </div>
+
+        <div class="box_2x2"> 2x2 </div>
+        <div class="box_2x1"> 2x1 </div>
+
+        <div class="box_1x1"> 1x1 </div>
+        <div class="box_2x2"> 2x2 </div>
+        <div class="box_1x2"> 1x2 </div>
+        <div class="box_2x1"> 2x1 </div> -->
     </body>
 </html>
