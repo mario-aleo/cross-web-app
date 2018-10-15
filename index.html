@@ -1,207 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="ngApp" 
+    lang="en">
     <head>
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
         <style>
             body {
                 position: relative;
-                height: 100vh;
                 min-height: 100vh;
-                padding: 0;
                 margin: 0;
-
-                display: grid;
-                grid-template-rows: 64px auto 64px;
-                grid-template-columns: 64px auto 64px;
-                grid-template-areas:
-                "header     header      header" 
-                "sideLeft   content     sideRight"
-                "sideLeft   footer      sideRight";
+                padding: 0;
             }
 
-            #header {
-                grid-area: header;
-                background-color: rgb(255, 255, 255);
-            }
-            #asideLeft {
-                grid-area: sideLeft;
-                background-color: rgb(215, 15, 15);
-            }
-            #asideRight {
-                grid-area: sideRight;
-                background-color: rgb(150, 150, 150);
-            }
-            #content {
-                grid-area: content;
-                background-color: rgb(200, 200, 200);
-            }
-            #footer {
-                grid-area: footer;
-                background-color: rgb(175, 175, 175);
-            }
-
-            @media only screen and (max-width: 425px) {
-                body {
-                    grid-template-rows: 64px auto 64px;
-                    grid-template-columns: auto;
-                    grid-template-areas:
-                    "header" 
-                    "content"
-                    "footer";
-                }
-                #asideLeft,
-                #asideRight {
-                    display: none;
-                }
+            body[unresolved] {
+                color: #FFF;
+                background-color: rgb(127, 10, 150);
+                background-image: url("data:image/svg+xml;utf8,<svg width='100' height='100' viewbox='0 0 100 100' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><circle cx='50' cy='50' r='50' fill='#FFF'/></svg>");
+                background-repeat: no-repeat;
+                background-position: center;
             }
         </style>
     </head>
-    <body>
+    <body unresolved>
+        <ng-foo primeiro-valor="2" segundo-valor="5"></ng-foo>
 
-        <header id="header"></header>
-        <aside id="asideLeft"></aside>
-        <aside id="asideRight"></aside>
-        <section id="content"></section>
-        <footer id="footer"></footer>
+        <script src="/node_modules/redux/dist/redux.min.js"></script>
+        <script src="/node_modules/angular/angular.min.js"></script>
+        <script src="/node_modules/ng-redux/umd/ng-redux.min.js"></script>
 
-        <!-- <style>
-            body {
-                margin: 0;
-                padding: 0;
-                min-height: 100vh;
-                background-color: lightgrey;
-
-                display: grid;
-                grid-gap: 8px;
-                grid-auto-rows: minmax(64px, 128px);
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .box_1x1,
-            .box_1x2,
-            .box_2x1,
-            .box_2x2 {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                background-color: #FFF;
-            }
-            .box_1x1 {
-                grid-row: span 1;
-                grid-column: span 1;
-            }
-            .box_1x2 {
-                grid-row: span 1;
-                grid-column: span 2;
-            }
-            .box_2x1 {
-                grid-row: span 2;
-                grid-column: span 1;
-            }
-            .box_2x2 {
-                grid-row: span 2;
-                grid-column: span 2;
-            }
-
-            /**
-             *  Define o flex-box de um elemento
-             */
-            .flex-row {
-                display: flex;
-                flex-direction: row;
-            }
-            .flex-column {
-                display: flex;
-                flex-direction: column;
-            }
-
-            /**
-             *  Alinha os elementos filhos no sentido da direção flex colocando eles no começo
-             */
-            .direction-start,
-            .d-start {
-                justify-content: flex-start;
-            }
-            /**
-             *  Alinha os elementos filhos no sentido da direção flex colocando eles no centro
-             */
-            .direction-center,
-            .d-center {
-                justify-content: center;
-            }
-            /**
-             *  Alinha os elementos filhos no sentido da direção flex colocando eles no fim
-             */
-            .direction-end,
-            .d-end {
-                justify-content: flex-end;
-            }
-            /**
-             *  Alinha os elementos filhos no sentido da direção flex colocando
-             *  um espaço entre ele
-             */
-            .direction-between,
-            .d-between {
-                justify-content: space-between;
-            }
-            /**
-             *  Alinha os elementos filhos no sentido da direção flex colocando
-             *  um espaço entre e ao redor dele
-             */
-            .direction-around,
-            .d-around {
-                justify-content: space-around;
-            }
-
-            /**
-             *  Alinha os elementos filhos no sentido contrario da direção flex
-             *  colocando eles no começo
-             */
-            .counter-direction-start,
-            .c-start {
-                align-items: flex-start;
-            }
-            /**
-             *  Alinha os elementos filhos no sentido contrario da direção flex
-             *  colocando eles no centro
-             */
-            .counter-direction-center,
-            .c-center {
-                align-items: center;
-            }
-            /**
-             *  Alinha os elementos filhos no sentido contrario da direção flex
-             *  colocando eles no fim
-             */
-            .counter-direction-end,
-            .c-end {
-                align-items: flex-end;
-            }
-        </style>
-
-        <div class="box_1x1"> 1x1 </div>
-        <div class="box_1x1"> 1x1 </div>
-        <div class="box_1x1"> 1x1 </div>
-
-        <div class="box_1x1"> 1x1 </div>
-        <div class="box_1x2"> 1x2 </div>
-
-        <div class="box_1x2"> 1x2 </div>
-        <div class="box_1x1"> 1x1 </div>
-
-        <div class="box_2x1"> 2x1 </div>
-        <div class="box_2x2"> 2x2 </div>
-
-        <div class="box_2x2"> 2x2 </div>
-        <div class="box_2x1"> 2x1 </div>
-
-        <div class="box_1x1"> 1x1 </div>
-        <div class="box_2x2"> 2x2 </div>
-        <div class="box_1x2"> 1x2 </div>
-        <div class="box_2x1"> 2x1 </div> -->
+        <script src="/components/redux/app.js"></script>
+        <script src="/components/redux/soma-input/soma-input.js"></script>
+        <script src="/components/redux/soma-output/soma-output.js"></script>
+        <script src="/components/redux/subtracao-input/subtracao-input.js"></script>
+        <script src="/components/redux/subtracao-output/subtracao-output.js"></script>
+        <script src="/ngfoo/ngFoo.js"></script>
     </body>
 </html>

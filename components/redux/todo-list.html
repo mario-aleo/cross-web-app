@@ -1,0 +1,22 @@
+<style>
+    todo-list {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgb(235, 235, 235);
+    }
+    .todo-item {
+        height: 64px;
+        width: 128px;
+        color: #555;
+        background-color: #FFF;
+    }
+</style>
+
+<section>
+    <div class="todo-item"
+        ng-repeat="todo in $ctrl.todoList">
+        <span> {{ todo.nome }} </span>
+        <span> {{ todo.descricao }} </span>
+    </div>
+</section>
